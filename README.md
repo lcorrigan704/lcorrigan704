@@ -18,19 +18,22 @@ async function get704Contact() {
 
 Python:
 ```python 
-from fastapi import FastAPI
 import requests
 
-app = FastAPI()
+def get_contact_info():
+    url = "https://704consultancy.com/contact-me"
+    response = requests.get(url)
+    response.raise_for_status()  
 
-@app.get("/contact-me")
-def fetch_contact():
-    try:
-        res = requests.get("https://704consultancy.com/contact-me")
-        res.raise_for_status()
-        return res.json()
-    except requests.RequestException as e:
-        return {"error": "Failed to fetch contact info", "details": str(e)}
+    contact = response.json()
+    print("704's Contact Info:")
+    print(f"Email: {contact['email_address']}")
+    print(f"Phone: {contact['phone_number']}")
+    print(f"Message: {contact['message']}")
+
+if __name__ == "__main__":
+    get_contact_info()
+
 
 ```
 
